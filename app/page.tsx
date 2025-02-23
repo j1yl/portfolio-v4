@@ -97,7 +97,7 @@ export default function Home() {
             </p>
           </button>
         </div>
-        <div className="flex flex-col gap-4">
+        {/* <div className="flex flex-col gap-4">
           <h2 className="text-purple-500 font-bold">
             Personal projects (coming soon)
           </h2>
@@ -105,7 +105,7 @@ export default function Home() {
             <div className="bg-white/5 aspect-square rounded-xl" />
             <div className="bg-white/5 aspect-square rounded-xl" />
           </div>
-        </div>
+        </div> */}
       </article>
     </div>
   );
