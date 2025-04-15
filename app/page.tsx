@@ -1,10 +1,12 @@
-import Hero from "@/components/hero/hero";
+import Hero from "@/components/sections/hero";
 
 export default function Page() {
   return (
-    <div id="container" className="flex flex-col w-full">
-      <Hero />
-      <section className="h-screen w-full bg-black"></section>
+    <div id="container" className="relative w-full">
+      <div className="relative z-10">
+        <Hero />
+      </div>
+      <div className="w-full h-screen bg-black"></div>
     </div>
   );
 }

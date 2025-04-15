@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 import { ReactLenis, useLenis } from "lenis/react";
+import Navbar from "@/components/ui/navbar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,6 +32,7 @@ export default function RootLayout({
         <body
           className={`${geistSans.variable} ${IBM.variable} font-ibm text-xs uppercase antialiased`}
         >
+          <Navbar />
           {children}
         </body>
       </html>

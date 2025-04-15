@@ -2,8 +2,6 @@
 
 import React, { useEffect, useRef, useState } from "react";
 
-type Props = {};
-
 const TEXT = "Joe—Lee";
 
 const vertexShader = `
@@ -84,20 +82,14 @@ const fragmentShader = `
   }
 `;
 
-export default function Banner({}: Props) {
+export default function Hero() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const textCanvasRef = useRef<HTMLCanvasElement>(null);
   const mouseRef = useRef({ x: 0.5, y: 0.5 });
   const timeRef = useRef(0);
   const [fontLoaded, setFontLoaded] = useState(false);
-  const [debug, setDebug] = useState({
-    mouse: { x: 0, y: 0 },
-    time: 0,
-    canvasSize: { width: 0, height: 0 },
-    mousePos: { x: 0, y: 0 },
-  });
+  const [fontSize, setFontSize] = useState(384); // Default font size
 
-  // Load font
   useEffect(() => {
     const font = new FontFace("Geist", "url(/fonts/Geist-Black.woff2)");
     font
@@ -111,6 +103,14 @@ export default function Banner({}: Props) {
       });
   }, []);
 
+  // Calculate responsive font size based on container dimensions
+  const calculateFontSize = (width: number, height: number) => {
+    // Base the font size on the smaller dimension to ensure it fits
+    const baseSize = Math.min(width, height);
+    // Use a percentage of the container size (adjust as needed)
+    return Math.floor(baseSize * 0.4);
+  };
+
   useEffect(() => {
     const canvas = canvasRef.current;
     const textCanvas = textCanvasRef.current;
@@ -122,7 +122,6 @@ export default function Banner({}: Props) {
       return;
     }
 
-    // Set canvas size
     const handleResize = () => {
       const dpr = window.devicePixelRatio || 1;
       canvas.width = window.innerWidth * dpr;
@@ -137,10 +136,8 @@ export default function Banner({}: Props) {
       textCanvas.style.width = `${window.innerWidth}px`;
       textCanvas.style.height = `${window.innerHeight}px`;
 
-      setDebug((prev) => ({
-        ...prev,
-        canvasSize: { width: canvas.width, height: canvas.height },
-      }));
+      // Update font size based on new dimensions
+      setFontSize(calculateFontSize(window.innerWidth, window.innerHeight));
     };
     handleResize();
     window.addEventListener("resize", handleResize);
@@ -224,11 +221,6 @@ export default function Banner({}: Props) {
       const x = (e.clientX - rect.left) / rect.width;
       const y = (e.clientY - rect.top) / rect.height;
       mouseRef.current = { x, y };
-      setDebug((prev) => ({
-        ...prev,
-        mouse: { x, y },
-        mousePos: { x: e.clientX, y: e.clientY },
-      }));
     };
     window.addEventListener("mousemove", handleMouseMove);
 
@@ -243,7 +235,7 @@ export default function Banner({}: Props) {
 
         if (fontLoaded) {
           ctx.fillStyle = "black";
-          ctx.font = "bold 384px Geist";
+          ctx.font = `bold ${fontSize}px Geist`;
           ctx.textAlign = "center";
           ctx.textBaseline = "middle";
           ctx.letterSpacing = "-0.07em";
@@ -266,7 +258,6 @@ export default function Banner({}: Props) {
       timeRef.current += 0.01;
       gl.uniform1f(timeUniform, timeRef.current);
       gl.uniform2f(mouseUniform, mouseRef.current.x, mouseRef.current.y);
-      setDebug((prev) => ({ ...prev, time: timeRef.current }));
 
       gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
       animationFrameId = requestAnimationFrame(animate);
@@ -279,7 +270,7 @@ export default function Banner({}: Props) {
       window.removeEventListener("mousemove", handleMouseMove);
       gl.deleteProgram(program);
     };
-  }, [fontLoaded]);
+  }, [fontLoaded, fontSize]);
 
   return (
     <div className="w-full h-screen relative bg-white">
@@ -291,15 +282,6 @@ export default function Banner({}: Props) {
       <p className="absolute bottom-1/3 left-1/2 font-medium -translate-x-1/2 text-xs select-none pointer-events-none">
         [ Design + Software + Ventures ]
       </p>
-      {/* <div className="absolute bottom-4 left-4 text-xs font-mono bg-black/10 p-2 rounded">
-        Mouse UV: {JSON.stringify(debug.mouse, null, 2)}
-        <br />
-        Mouse Pos: {JSON.stringify(debug.mousePos, null, 2)}
-        <br />
-        Canvas: {JSON.stringify(debug.canvasSize, null, 2)}
-        <br />
-        Time: {debug.time.toFixed(2)}
-      </div> */}
     </div>
   );
 }
