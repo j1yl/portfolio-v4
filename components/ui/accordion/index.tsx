@@ -1,28 +1,29 @@
 "use client";
 
-import React, { useRef, useEffect } from "react";
-import WorkCard from "./card";
+import React, { useRef, useState, useEffect } from "react";
 import gsap from "gsap";
 
-type WorkCardProps = {
-  entry: string;
-  name: string;
-  tags: string[];
-  images?: string[];
-  videos?: string[];
-  description?: string;
-  link?: string;
-  isOpen: boolean;
-  onToggle: () => void;
+type AccordionProps = {
+  children: React.ReactNode;
+  title?: string;
+  subtitle?: string;
+  index?: number;
+  className?: string;
 };
 
-export default function WorkAccordion(props: WorkCardProps) {
+export default function Accordion({
+  children,
+  title,
+  subtitle,
+  index,
+  className = "",
+}: AccordionProps) {
+  const [isOpen, setIsOpen] = useState(false);
   const contentRef = useRef<HTMLDivElement>(null);
-  const idx = parseInt(props.entry);
 
   useEffect(() => {
     if (contentRef.current) {
-      if (props.isOpen) {
+      if (isOpen) {
         gsap.to(contentRef.current, {
           clipPath: "inset(0% 0% 0% 0%)",
           height: "auto",
@@ -38,38 +39,41 @@ export default function WorkAccordion(props: WorkCardProps) {
         });
       }
     }
-  }, [props.isOpen]);
+  }, [isOpen]);
 
   return (
-    <div className="h-max">
+    <div className={`h-max ${className}`}>
       <div className="relative group w-full">
         <div
           className="flex justify-between w-full z-20 items-center cursor-pointer"
-          onClick={props.onToggle}
+          onClick={() => setIsOpen(!isOpen)}
         >
           <div
             className="grid grid-cols-3 w-full gap-3 group-hover:text-white transition-colors ease-in-out duration-300"
             style={{
-              color: props.isOpen ? "white" : "",
+              color: isOpen ? "white" : "",
             }}
           >
             <h2>
-              [{idx}] {props.name}
+              {index !== undefined && `[${index}] `}
+              {title}
             </h2>
-            <p
-              className="group-hover:text-white text-black/50"
-              style={{
-                color: props.isOpen ? "white" : "",
-              }}
-            >
-              {props.tags.join(", ")}
-            </p>
+            {subtitle && (
+              <p
+                className="group-hover:text-white text-black/50"
+                style={{
+                  color: isOpen ? "white" : "",
+                }}
+              >
+                {subtitle}
+              </p>
+            )}
           </div>
         </div>
         <span
           className="bg-foreground pointer-events-none -z-10 w-0 h-full group-hover:w-full transition-all ease-in-out duration-300 absolute top-0 left-0"
           style={{
-            width: props.isOpen ? "100%" : "",
+            width: isOpen ? "100%" : "",
           }}
         />
         <span className="bg-black/5 pointer-events-none -z-10 w-full h-full group-hover:w-0 transition-all ease-in-out duration-300 absolute top-0 left-0" />
@@ -80,9 +84,7 @@ export default function WorkAccordion(props: WorkCardProps) {
         className="overflow-hidden"
         style={{ clipPath: "inset(0% 0% 100% 0%)", height: "0px" }}
       >
-        <div className="pb-4">
-          <WorkCard {...props} />
-        </div>
+        <div className="pb-4">{children}</div>
       </div>
     </div>
   );

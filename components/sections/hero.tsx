@@ -108,7 +108,7 @@ export default function Hero() {
     // Base the font size on the smaller dimension to ensure it fits
     const baseSize = Math.min(width, height);
     // Use a percentage of the container size (adjust as needed)
-    return Math.floor(baseSize * 0.4);
+    return Math.floor(baseSize * 0.5);
   };
 
   useEffect(() => {
@@ -279,8 +279,8 @@ export default function Hero() {
         ref={textCanvasRef}
         className="absolute inset-0 w-full h-full opacity-0"
       />
-      <p className="absolute bottom-1/3 left-1/2 font-medium -translate-x-1/2 text-xs select-none pointer-events-none">
-        [ Design + Software + Ventures ]
+      <p className="absolute bottom-1/3 left-1/2 -translate-x-1/2 text-xs select-none pointer-events-none">
+        DESIGN, DEVELOPMENT, VENTURE PORTFOLIO
       </p>
     </div>
   );

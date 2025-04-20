@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
 import { Geist, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
-import { ReactLenis, useLenis } from "lenis/react";
+import { ReactLenis } from "lenis/react";
+
 import Navbar from "@/components/ui/navbar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
 });
 
 const IBM = IBM_Plex_Mono({
@@ -27,15 +29,20 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ReactLenis root>
-      <html lang="en">
-        <body
-          className={`${geistSans.variable} ${IBM.variable} font-ibm text-xs uppercase antialiased`}
-        >
-          <Navbar />
-          {children}
-        </body>
-      </html>
-    </ReactLenis>
+    // <ReactLenis
+    //   root
+    //   options={{
+    //     duration: 0.5,
+    //   }}
+    // >
+    <html lang="en">
+      <body
+        className={`${geistSans.variable} ${IBM.variable} font-ibm text-xs uppercase antialiased`}
+      >
+        <Navbar />
+        {children}
+      </body>
+    </html>
+    // </ReactLenis>
   );
 }
