@@ -1,6 +1,5 @@
 import Hero from "@/components/sections/hero";
 import Project from "@/components/ui/project";
-import Image from "next/image";
 
 export default function Page() {
   return (
@@ -35,41 +34,32 @@ export default function Page() {
           link="https://example.com/project3"
         />
       </section> */}
-      <section className="min-h-screen w-full px-8 py-6 gap-6 flex flex-col">
-        <h2 className="font-medium whitespace-nowrap font-geist text-6xl leading-none tracking-tighter text-left normal-case">
-          Selected works
-        </h2>
-        <div className="grid grid-cols-12 gap-4 w-full h-full flex-grow min-h-screen">
-          <div className="col-span-6 flex flex-col gap-2">
-            <div className="p-6 bg-neutral-100 aspect-square w-full h-auto grid place-items-center">
-              <div className="w-full h-auto relative aspect-video bg-white"></div>
-            </div>
-            <span className="w-max font-geist normal-case font-medium">1</span>
+      <section className="min-h-screen w-full px-8 py-6 flex gap-6">
+        <div className="flex flex-col items-end w-full gap-6">
+          <div className="flex flex-col gap-4">
+            <h2 className="font-medium whitespace-nowrap font-geist text-6xl leading-none tracking-tighter text-right normal-case">
+              Selected works
+            </h2>
+            <p className="text-right max-w-prose">
+              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sequi,
+              illum iure. Minus nihil temporibus sequi cupiditate labore. Id
+              odio nostrum, recusandae animi unde a odit.
+            </p>
           </div>
-          <div className="col-span-4 col-start-7 flex flex-col gap-2">
-            <div className="p-6 bg-neutral-100 aspect-square w-full h-auto grid place-items-center">
-              <div className="w-full h-auto relative aspect-video bg-white"></div>
-            </div>
-            <span className="w-max font-geist normal-case font-medium">2</span>
-          </div>
-          <div className="col-span-4 col-start-7 flex flex-col gap-2">
-            <div className="p-6 bg-neutral-100 aspect-square w-full h-auto grid place-items-center">
-              <div className="w-full h-auto relative aspect-video bg-white"></div>
-            </div>
-            <span className="w-max font-geist normal-case font-medium">3</span>
-          </div>
-          <div className="col-span-4 col-start-3 row-start-4 flex flex-col gap-2">
-            <div className="p-6 bg-neutral-100 aspect-square w-full h-auto grid place-items-center">
-              <div className="w-full h-auto relative aspect-video bg-white"></div>
-            </div>
-            <span className="w-max font-geist normal-case font-medium">4</span>
-          </div>
-          <div className="col-span-5 col-start-7 flex flex-col gap-2">
-            <div className="p-6 bg-neutral-100 aspect-square w-full h-auto grid place-items-center">
-              <div className="w-full h-auto relative aspect-video bg-white"></div>
-            </div>
-            <span className="w-max font-geist normal-case font-medium">5</span>
-          </div>
+          <Project
+            title="Project 1"
+            src="/images/projects/gtext1.png"
+            className="w-2/3"
+            bg="bg-red-500"
+          />
+        </div>
+        <div className="flex flex-col items-start w-full gap-6">
+          <Project
+            title="Project 2"
+            src="/images/projects/path1.png"
+            className="w-full"
+            bg="bg-green-500"
+          />
         </div>
       </section>
     </div>

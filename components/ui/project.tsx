@@ -1,51 +1,27 @@
-import React from "react";
+import { cn } from "@/lib/utils";
 import Image from "next/image";
-import Accordion from "./accordion";
 
-type ProjectProps = {
+type Props = {
   title: string;
-  subtitle?: string;
-  index?: number;
-  imageSrc?: string;
-  description?: string;
-  link?: string;
+  src: string;
+  className?: string;
+  bg?: string;
 };
 
-export default function Project({
-  title,
-  subtitle,
-  index,
-  imageSrc,
-  description,
-  link,
-}: ProjectProps) {
+export default function Project({ title, src, className, bg }: Props) {
   return (
-    <Accordion title={title} subtitle={subtitle} index={index}>
-      <div className="w-full h-full bg-neutral-50 p-4">
-        {imageSrc && (
-          <div className="w-full h-auto aspect-video relative mb-4">
-            <Image
-              src={imageSrc}
-              alt={title}
-              fill
-              className="object-cover object-center"
-            />
-          </div>
+    <div className={cn("flex flex-col gap-2 w-full", className)}>
+      <div
+        className={cn(
+          "p-6 aspect-square bg-neutral-100 flex items-center justify-center",
+          bg
         )}
-
-        {description && <p className="mb-4">{description}</p>}
-
-        {link && (
-          <a
-            href={link}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-blue-600 hover:underline"
-          >
-            View Project
-          </a>
-        )}
+      >
+        <div className="relative aspect-video w-full">
+          <Image src={src} alt="Project" fill />
+        </div>
       </div>
-    </Accordion>
+      <p className="font-geist font-medium normal-case">{title}</p>
+    </div>
   );
 }
