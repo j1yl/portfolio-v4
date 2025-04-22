@@ -11,10 +11,14 @@ export default function Navbar({}: Props) {
     <div className="flex leading-none justify-between items-center w-full fixed top-0 left-0 z-50 px-8 py-4 mix-blend-difference">
       <div className="flex items-start justify-between gap-4 font-ibm w-full invert">
         <div className="grid grid-cols-3 md:place-items-start w-full md:gap-x-8 md:gap-y-1">
-          <div className="space-y-1 w-full grid place-items-start">
+          <div className="w-full grid place-items-start">
             <Link href="/">Joe Lee</Link>
             <div>
               {"<"}Los Angeles{">"} <Clock />
+            </div>
+            <div className="text-black/50">
+              <br />
+              Shift + G for grid
             </div>
           </div>
           <nav className="flex w-full h-full gap-3 md:col-span-2 items-start justify-end">

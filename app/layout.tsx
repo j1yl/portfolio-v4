@@ -4,6 +4,7 @@ import "./globals.css";
 import { ReactLenis } from "lenis/react";
 
 import Navbar from "@/components/ui/navbar";
+import { GridView } from "@/components/ui/grid-view";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -40,6 +41,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${IBM.variable} font-ibm text-xs uppercase antialiased`}
       >
         <Navbar />
+        <GridView />
         {children}
       </body>
     </html>

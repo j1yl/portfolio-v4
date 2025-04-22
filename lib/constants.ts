@@ -38,11 +38,6 @@ export const footerLinks = [
     newtab: true,
   },
   {
-    name: "Cookies",
-    href: "/cookies",
-    newtab: false,
-  },
-  {
     name: "Request Resume",
     href: "/",
     newtab: false,
